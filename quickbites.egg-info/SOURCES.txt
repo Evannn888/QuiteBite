@@ -1,0 +1,14 @@
+README.md
+setup.py
+app/__init__.py
+app/database.py
+app/models/__init__.py
+app/models/recipe.py
+app/models/user.py
+app/recommender/__init__.py
+app/recommender/recommender.py
+quickbites.egg-info/PKG-INFO
+quickbites.egg-info/SOURCES.txt
+quickbites.egg-info/dependency_links.txt
+quickbites.egg-info/requires.txt
+quickbites.egg-info/top_level.txt
