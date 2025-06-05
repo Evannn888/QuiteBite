@@ -1,0 +1,251 @@
+{
+  "recipes": [
+    {
+      "name": "Spaghetti Carbonara",
+      "description": "Classic Italian pasta dish with eggs, cheese, pancetta, and black pepper",
+      "instructions": "1. Cook pasta according to package instructions\n2. Fry pancetta until crispy\n3. Mix eggs and cheese\n4. Combine hot pasta with egg mixture and pancetta\n5. Season with black pepper",
+      "prep_time": 15,
+      "cook_time": 20,
+      "servings": 4,
+      "difficulty": "medium",
+      "ingredients": [
+        "spaghetti",
+        "eggs",
+        "pecorino romano",
+        "pancetta",
+        "black pepper",
+        "salt"
+      ],
+      "tags": [
+        "italian",
+        "pasta",
+        "quick",
+        "dinner"
+      ]
+    },
+    {
+      "name": "Chicken Tikka Masala",
+      "description": "Creamy Indian curry with tender chicken pieces in a spiced tomato sauce",
+      "instructions": "1. Marinate chicken in yogurt and spices\n2. Grill chicken until charred\n3. Simmer in tomato sauce with cream\n4. Garnish with cilantro",
+      "prep_time": 30,
+      "cook_time": 45,
+      "servings": 4,
+      "difficulty": "medium",
+      "ingredients": [
+        "chicken breast",
+        "yogurt",
+        "tomato sauce",
+        "heavy cream",
+        "garam masala",
+        "ginger",
+        "garlic",
+        "cilantro"
+      ],
+      "tags": [
+        "indian",
+        "curry",
+        "dinner",
+        "spicy"
+      ]
+    },
+    {
+      "name": "Vegetable Stir Fry",
+      "description": "Quick and healthy Asian-style stir-fried vegetables with tofu",
+      "instructions": "1. Cut vegetables into uniform pieces\n2. Press and cube tofu\n3. Stir-fry vegetables in batches\n4. Add sauce and tofu\n5. Serve over rice",
+      "prep_time": 20,
+      "cook_time": 15,
+      "servings": 4,
+      "difficulty": "easy",
+      "ingredients": [
+        "broccoli",
+        "carrots",
+        "bell peppers",
+        "tofu",
+        "soy sauce",
+        "ginger",
+        "garlic",
+        "sesame oil"
+      ],
+      "tags": [
+        "vegetarian",
+        "asian",
+        "healthy",
+        "quick"
+      ]
+    },
+    {
+      "name": "Greek Salad",
+      "description": "Fresh Mediterranean salad with feta cheese and olives",
+      "instructions": "1. Chop vegetables\n2. Combine in bowl\n3. Add feta and olives\n4. Dress with olive oil and oregano",
+      "prep_time": 15,
+      "cook_time": 0,
+      "servings": 4,
+      "difficulty": "easy",
+      "ingredients": [
+        "cucumber",
+        "tomatoes",
+        "red onion",
+        "feta cheese",
+        "kalamata olives",
+        "olive oil",
+        "oregano"
+      ],
+      "tags": [
+        "mediterranean",
+        "vegetarian",
+        "salad",
+        "healthy"
+      ]
+    },
+    {
+      "name": "Beef Tacos",
+      "description": "Mexican-style tacos with seasoned ground beef and fresh toppings",
+      "instructions": "1. Brown beef with taco seasoning\n2. Warm tortillas\n3. Assemble with toppings\n4. Serve with lime wedges",
+      "prep_time": 20,
+      "cook_time": 15,
+      "servings": 4,
+      "difficulty": "easy",
+      "ingredients": [
+        "ground beef",
+        "taco seasoning",
+        "corn tortillas",
+        "lettuce",
+        "tomatoes",
+        "cheese",
+        "sour cream",
+        "lime"
+      ],
+      "tags": [
+        "mexican",
+        "dinner",
+        "quick",
+        "family"
+      ]
+    },
+    {
+      "name": "Pad Thai",
+      "description": "Classic Thai stir-fried rice noodles with peanuts and tamarind sauce",
+      "instructions": "1. Soak rice noodles\n2. Stir-fry protein\n3. Add noodles and sauce\n4. Toss with peanuts and lime",
+      "prep_time": 25,
+      "cook_time": 15,
+      "servings": 4,
+      "difficulty": "medium",
+      "ingredients": [
+        "rice noodles",
+        "tofu",
+        "bean sprouts",
+        "peanuts",
+        "tamarind paste",
+        "palm sugar",
+        "fish sauce",
+        "lime"
+      ],
+      "tags": [
+        "thai",
+        "noodles",
+        "dinner",
+        "vegetarian"
+      ]
+    },
+    {
+      "name": "Chicken Curry",
+      "description": "Spicy Indian curry with tender chicken and aromatic spices",
+      "instructions": "1. Brown chicken\n2. Sauté onions and spices\n3. Simmer in tomato sauce\n4. Finish with cream",
+      "prep_time": 25,
+      "cook_time": 40,
+      "servings": 4,
+      "difficulty": "medium",
+      "ingredients": [
+        "chicken thighs",
+        "onion",
+        "garlic",
+        "ginger",
+        "curry powder",
+        "tomato sauce",
+        "coconut milk",
+        "cilantro"
+      ],
+      "tags": [
+        "indian",
+        "curry",
+        "dinner",
+        "spicy"
+      ]
+    },
+    {
+      "name": "Vegetable Soup",
+      "description": "Hearty vegetable soup with seasonal vegetables",
+      "instructions": "1. Sauté vegetables\n2. Add broth\n3. Simmer until tender\n4. Season to taste",
+      "prep_time": 20,
+      "cook_time": 30,
+      "servings": 6,
+      "difficulty": "easy",
+      "ingredients": [
+        "carrots",
+        "celery",
+        "onion",
+        "potatoes",
+        "vegetable broth",
+        "herbs",
+        "salt",
+        "pepper"
+      ],
+      "tags": [
+        "soup",
+        "vegetarian",
+        "healthy",
+        "lunch"
+      ]
+    },
+    {
+      "name": "Pasta Primavera",
+      "description": "Light pasta dish with fresh spring vegetables",
+      "instructions": "1. Cook pasta\n2. Sauté vegetables\n3. Combine with pasta\n4. Toss with olive oil and herbs",
+      "prep_time": 20,
+      "cook_time": 20,
+      "servings": 4,
+      "difficulty": "easy",
+      "ingredients": [
+        "pasta",
+        "broccoli",
+        "bell peppers",
+        "zucchini",
+        "cherry tomatoes",
+        "olive oil",
+        "parmesan",
+        "herbs"
+      ],
+      "tags": [
+        "italian",
+        "vegetarian",
+        "pasta",
+        "healthy"
+      ]
+    },
+    {
+      "name": "Chicken Stir Fry",
+      "description": "Quick and healthy Asian-style chicken and vegetable stir fry",
+      "instructions": "1. Cut chicken and vegetables\n2. Stir-fry chicken\n3. Add vegetables\n4. Toss with sauce",
+      "prep_time": 20,
+      "cook_time": 15,
+      "servings": 4,
+      "difficulty": "easy",
+      "ingredients": [
+        "chicken breast",
+        "broccoli",
+        "carrots",
+        "bell peppers",
+        "soy sauce",
+        "ginger",
+        "garlic",
+        "sesame oil"
+      ],
+      "tags": [
+        "asian",
+        "chicken",
+        "healthy",
+        "quick"
+      ]
+    }
+  ]
+} 

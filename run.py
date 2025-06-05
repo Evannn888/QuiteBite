@@ -1,8 +1,7 @@
 from flask import Flask, request, jsonify, render_template_string, render_template
 from flask_cors import CORS
 from app.database import engine, Base, get_db, SessionLocal
-from app.models.recipe import Recipe, Ingredient, Tag, Rating
-from app.models.user import User, Allergy, Preference, SavedRecipe
+from app.models.recipe import Recipe, Ingredient, Tag, Rating, User, Allergy, Preference, SavedRecipe
 from app.recommender.recommender import RecipeRecommender
 from sqlalchemy.orm import Session
 import os
@@ -15,7 +14,9 @@ load_dotenv()
 Base.metadata.create_all(bind=engine)
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+# Configure CORS to allow all origins during development
+CORS(app, resources={r"/*": {"origins": "*"}})
+
 recommender = RecipeRecommender()
 
 # HTML template for the home page
@@ -50,7 +51,7 @@ HOME_PAGE = """
 </head>
 <body>
     <h1>Welcome to QuickBites API</h1>
-    <p>This is a RESTful API for the QuickBites recipe recommendation system.</p>
+    <p>This is a RESTful API for the QuickBites recipe finder system.</p>
     
     <h2>Available Endpoints:</h2>
     
@@ -61,9 +62,9 @@ HOME_PAGE = """
     </div>
 
     <div class="endpoint">
-        <h3>Get Recipe Recommendations</h3>
+        <h3>Find Recipes</h3>
         <p><code>POST /api/recipes/recommend</code></p>
-        <p>Get personalized recipe recommendations based on user preferences.</p>
+        <p>Find recipes based on user preferences and available ingredients.</p>
         <p>Example request body:</p>
         <pre>
 {
@@ -130,7 +131,7 @@ def get_recipes():
 
 @app.route('/api/recipes/recommend', methods=['POST'])
 def recommend_recipes():
-    """Get recipe recommendations based on user preferences."""
+    """Find recipes based on user preferences."""
     data = request.json
     preferences = data.get('preferences', {})
     db = SessionLocal()
@@ -148,14 +149,14 @@ def recommend_recipes():
             'tags': [tag.name for tag in recipe.tags]
         } for recipe in recipes]
         
-        # Get recommendations
-        recommendations = recommender.get_recommendations(
+        # Get filtered recipes
+        filtered_recipes = recommender.get_recommendations(
             recipe_dicts,
             preferences,
             n_recommendations=5
         )
         
-        return jsonify(recommendations)
+        return jsonify(filtered_recipes)
     finally:
         db.close()
 
@@ -227,41 +228,6 @@ def rate_recipe(recipe_id):
     
     db.commit()
     return jsonify({'message': 'Rating saved successfully'})
-
-@app.route('/api/recipes/<int:recipe_id>/analyze', methods=['GET'])
-def analyze_recipe(recipe_id):
-    """Get detailed analysis of a recipe using DeepSeek API."""
-    db = SessionLocal()
-    try:
-        recipe = db.query(Recipe).filter(Recipe.id == recipe_id).first()
-        if not recipe:
-            return jsonify({'error': 'Recipe not found'}), 404
-
-        recipe_dict = {
-            'id': recipe.id,
-            'name': recipe.name,
-            'description': recipe.description,
-            'prep_time': recipe.prep_time,
-            'cook_time': recipe.cook_time,
-            'difficulty': recipe.difficulty,
-            'ingredients': [ing.name for ing in recipe.ingredients],
-            'tags': [tag.name for tag in recipe.tags]
-        }
-
-        analysis = deepseek_service.analyze_recipe(recipe_dict)
-        return jsonify(analysis)
-    finally:
-        db.close()
-
-@app.route('/api/recipes/suggest', methods=['POST'])
-def suggest_recipes():
-    """Get AI-generated recipe suggestions based on ingredients and preferences."""
-    data = request.json
-    preferences = data.get('preferences', {})
-    ingredients = data.get('ingredients', [])
-
-    suggestions = deepseek_service.get_recipe_suggestions(ingredients, preferences)
-    return jsonify(suggestions)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5002, debug=True) 

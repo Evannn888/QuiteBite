@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const recipeForm = document.getElementById('recipeForm');
     const recipeResults = document.getElementById('recipeResults');
-    const recipeCardTemplate = document.getElementById('recipeCardTemplate');
 
     // Load all recipes on page load
     loadAllRecipes();
@@ -9,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle form submission
     recipeForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        getRecommendations();
+        getRecipes();
     });
 
     // Function to load all recipes
@@ -24,8 +23,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Function to get recommendations
-    async function getRecommendations() {
+    // Function to get recipes based on filters
+    async function getRecipes() {
         const formData = new FormData(recipeForm);
         const dietaryRestrictions = Array.from(formData.getAll('dietary'));
         const cuisine = formData.get('cuisine');
@@ -56,8 +55,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const recipes = await response.json();
             displayRecipes(recipes);
         } catch (error) {
-            console.error('Error getting recommendations:', error);
-            showError('Failed to get recommendations. Please try again later.');
+            console.error('Error getting recipes:', error);
+            showError('Failed to get recipes. Please try again later.');
         } finally {
             recipeResults.classList.remove('loading');
         }
@@ -78,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Display recommended recipes
+        // Display recipes
         recipes.forEach(recipe => {
             const card = document.createElement('div');
             card.className = 'col-md-6 mb-4';
@@ -99,40 +98,6 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
             recipeResults.appendChild(card);
         });
-    }
-
-    // Function to create a recipe card
-    function createRecipeCard(recipe) {
-        const template = recipeCardTemplate.content.cloneNode(true);
-        const card = template.querySelector('.col-md-6');
-
-        // Set basic recipe information
-        card.querySelector('.card-title').textContent = recipe.name;
-        card.querySelector('.description').textContent = recipe.description;
-        
-        // Set recipe details
-        card.querySelector('.prep-time').textContent = `Prep: ${recipe.prep_time} min`;
-        card.querySelector('.cook-time').textContent = `Cook: ${recipe.cook_time} min`;
-        card.querySelector('.difficulty').textContent = recipe.difficulty;
-
-        // Set ingredients
-        const ingredientsList = card.querySelector('.ingredients-list');
-        recipe.ingredients.forEach(ingredient => {
-            const li = document.createElement('li');
-            li.textContent = ingredient;
-            ingredientsList.appendChild(li);
-        });
-
-        // Set tags
-        const tagsContainer = card.querySelector('.tags-container');
-        recipe.tags.forEach(tag => {
-            const badge = document.createElement('span');
-            badge.className = 'badge';
-            badge.textContent = tag;
-            tagsContainer.appendChild(badge);
-        });
-
-        return card;
     }
 
     // Function to show error message
