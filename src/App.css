@@ -45,26 +45,31 @@ body {
 
 /* Navbar styles */
 .navbar {
-  background: linear-gradient(90deg, #ff9a9e 0%, #fad0c4 100%) !important;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%) !important;
+  padding: 1rem;
 }
 
 .navbar-brand {
-  color: #fff !important;
-  font-weight: bold;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  color: white !important;
+  font-size: 1.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover {
+  transform: scale(1.05);
 }
 
 /* Card styles */
 .card {
   border: none;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: rgba(255, 255, 255, 0.9);
 }
 
 .card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
 }
 
 .card-title {
@@ -73,20 +78,24 @@ body {
 }
 
 .btn-primary {
-  background: linear-gradient(90deg, #ff9a9e 0%, #fad0c4 100%);
+  background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
   border: none;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 1.5rem;
+  transition: transform 0.2s ease;
 }
 
 .btn-primary:hover {
-  background: linear-gradient(90deg, #fad0c4 0%, #ff9a9e 100%);
   transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .alert {
   border: none;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+  color: white;
+  padding: 1rem;
+  margin-bottom: 1rem;
 }
 
 .alert-danger {
@@ -135,7 +144,25 @@ body {
 
 /* Loading spinner */
 .spinner-border {
-  color: #ff6b6b;
+  width: 3rem;
+  height: 3rem;
+  color: #4b6cb7;
+}
+
+.animate-brand {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 /* Responsive adjustments */

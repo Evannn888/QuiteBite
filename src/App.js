@@ -62,7 +62,7 @@ function App() {
     <div className="container mt-4">
       <nav className="navbar navbar-expand-lg navbar-light bg-light mb-4 shadow-sm">
         <div className="container-fluid">
-          <a className="navbar-brand fw-bold" href="/">QuickBites</a>
+          <a className="navbar-brand fw-bold animate-brand" href="/">QuickBites</a>
         </div>
       </nav>
 
