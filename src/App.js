@@ -8,6 +8,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [searchParams, setSearchParams] = useState(null);
+  const [totalRecipes, setTotalRecipes] = useState(0);
 
   useEffect(() => {
     loadAllRecipes();
@@ -16,14 +17,17 @@ function App() {
   const loadAllRecipes = async () => {
     try {
       setLoading(true);
+      setError(null);
       const response = await fetch('http://localhost:5002/api/recipes');
       if (!response.ok) {
-        throw new Error('Failed to fetch recipes');
+        throw new Error(`Failed to fetch recipes: ${response.statusText}`);
       }
       const data = await response.json();
       setRecipes(data);
+      setTotalRecipes(data.length);
     } catch (err) {
       setError(err.message);
+      console.error('Error loading recipes:', err);
     } finally {
       setLoading(false);
     }
@@ -32,6 +36,7 @@ function App() {
   const handleSearch = async (params) => {
     try {
       setLoading(true);
+      setError(null);
       console.log('Sending search params:', params);
       setSearchParams(params.preferences);
       
@@ -44,12 +49,13 @@ function App() {
       });
       
       if (!response.ok) {
-        throw new Error('Failed to get recipes');
+        throw new Error(`Search failed: ${response.statusText}`);
       }
       
       const data = await response.json();
       console.log('Received recipes:', data);
       setRecipes(data);
+      setTotalRecipes(data.length);
     } catch (err) {
       console.error('Search error:', err);
       setError(err.message);
@@ -63,6 +69,9 @@ function App() {
       <nav className="navbar navbar-expand-lg navbar-light bg-light mb-4 shadow-sm">
         <div className="container-fluid">
           <a className="navbar-brand fw-bold animate-brand" href="/">QuickBites</a>
+          <span className="navbar-text text-muted">
+            {totalRecipes} recipes available
+          </span>
         </div>
       </nav>
 
@@ -81,18 +90,30 @@ function App() {
               <div className="spinner-border text-primary" role="status">
                 <span className="visually-hidden">Loading...</span>
               </div>
+              <p className="mt-2 text-muted">Loading recipes...</p>
             </div>
           )}
           
           {error && (
             <div className="alert alert-danger shadow-sm" role="alert">
-              {error}
+              <h4 className="alert-heading">Oops! Something went wrong</h4>
+              <p>{error}</p>
+              <hr />
+              <p className="mb-0">Please try again or contact support if the problem persists.</p>
             </div>
           )}
 
           {!loading && !error && recipes.length === 0 && (
             <div className="alert alert-info shadow-sm" role="alert">
-              No recipes found. Try adjusting your search criteria.
+              <h4 className="alert-heading">No recipes found</h4>
+              <p>Try adjusting your search criteria or browse all recipes.</p>
+              <hr />
+              <button 
+                className="btn btn-outline-primary"
+                onClick={loadAllRecipes}
+              >
+                Show All Recipes
+              </button>
             </div>
           )}
 

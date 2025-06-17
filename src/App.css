@@ -60,6 +60,11 @@ body {
   transform: scale(1.05);
 }
 
+.navbar-text {
+  color: rgba(255, 255, 255, 0.8) !important;
+  font-size: 0.9rem;
+}
+
 /* Card styles */
 .card {
   border: none;
@@ -67,7 +72,7 @@ body {
   background: rgba(255, 255, 255, 0.9);
 }
 
-.card:hover {
+.hover-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
 }
@@ -85,6 +90,19 @@ body {
 }
 
 .btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-outline-primary {
+  color: #4b6cb7;
+  border-color: #4b6cb7;
+  transition: all 0.2s ease;
+}
+
+.btn-outline-primary:hover {
+  background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+  border-color: transparent;
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
@@ -139,7 +157,27 @@ body {
 /* Badge styles */
 .badge {
   font-weight: 500;
-  padding: 0.5em 0.75em;
+  padding: 0.5em 0.8em;
+  transition: transform 0.2s ease;
+}
+
+.badge:hover {
+  transform: scale(1.05);
+}
+
+.text-truncate {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gap-1 {
+  gap: 0.5rem !important;
+}
+
+.gap-2 {
+  gap: 1rem !important;
 }
 
 /* Loading spinner */
