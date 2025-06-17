@@ -9,10 +9,26 @@ function App() {
   const [error, setError] = useState(null);
   const [searchParams, setSearchParams] = useState(null);
   const [totalRecipes, setTotalRecipes] = useState(0);
+  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
     loadAllRecipes();
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('darkMode');
+    if (savedTheme) {
+      setDarkMode(JSON.parse(savedTheme));
+    }
   }, []);
+
+  useEffect(() => {
+    // Update body class when dark mode changes
+    document.body.classList.toggle('dark-mode', darkMode);
+    localStorage.setItem('darkMode', JSON.stringify(darkMode));
+  }, [darkMode]);
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
 
   const loadAllRecipes = async () => {
     try {
@@ -65,13 +81,22 @@ function App() {
   };
 
   return (
-    <div className="container mt-4">
+    <div className={`container mt-4 ${darkMode ? 'dark-mode' : ''}`}>
       <nav className="navbar navbar-expand-lg navbar-light bg-light mb-4 shadow-sm">
         <div className="container-fluid">
           <a className="navbar-brand fw-bold animate-brand" href="/">QuickBites</a>
-          <span className="navbar-text text-muted">
-            {totalRecipes} recipes available
-          </span>
+          <div className="d-flex align-items-center">
+            <span className="navbar-text text-muted me-3">
+              {totalRecipes} recipes available
+            </span>
+            <button 
+              className="btn btn-outline-primary btn-sm ms-3"
+              onClick={toggleDarkMode}
+              title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            >
+              <i className={`bi bi-${darkMode ? 'sun-fill' : 'moon-fill'} fs-5`}></i>
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -119,8 +144,8 @@ function App() {
 
           <div className="row row-cols-1 row-cols-md-2 g-4">
             {recipes.map((recipe) => (
-              <div className="col" key={recipe.id}>
-                <RecipeCard recipe={recipe} />
+              <div key={recipe.id} className="col-md-6 col-lg-4 mb-4">
+                <RecipeCard recipe={recipe} darkMode={darkMode} />
               </div>
             ))}
           </div>
