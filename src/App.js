@@ -10,6 +10,8 @@ function App() {
   const [searchParams, setSearchParams] = useState(null);
   const [totalRecipes, setTotalRecipes] = useState(0);
   const [darkMode, setDarkMode] = useState(false);
+  const [favorites, setFavorites] = useState([]);
+  const [showFavorites, setShowFavorites] = useState(false);
 
   useEffect(() => {
     loadAllRecipes();
@@ -17,6 +19,12 @@ function App() {
     const savedTheme = localStorage.getItem('darkMode');
     if (savedTheme) {
       setDarkMode(JSON.parse(savedTheme));
+    }
+    
+    // Load favorites from localStorage
+    const savedFavorites = localStorage.getItem('favorites');
+    if (savedFavorites) {
+      setFavorites(JSON.parse(savedFavorites));
     }
   }, []);
 
@@ -26,8 +34,23 @@ function App() {
     localStorage.setItem('darkMode', JSON.stringify(darkMode));
   }, [darkMode]);
 
+  useEffect(() => {
+    // Save favorites to localStorage
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }, [favorites]);
+
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
+  };
+
+  const toggleFavorite = (recipeId) => {
+    setFavorites(prev => {
+      if (prev.includes(recipeId)) {
+        return prev.filter(id => id !== recipeId);
+      } else {
+        return [...prev, recipeId];
+      }
+    });
   };
 
   const loadAllRecipes = async () => {
@@ -80,6 +103,13 @@ function App() {
     }
   };
 
+  const getDisplayRecipes = () => {
+    if (showFavorites) {
+      return recipes.filter(recipe => favorites.includes(recipe.id));
+    }
+    return recipes;
+  };
+
   return (
     <div className={`container mt-4 ${darkMode ? 'dark-mode' : ''}`}>
       <nav className="navbar navbar-expand-lg navbar-light bg-light mb-4 shadow-sm">
@@ -87,8 +117,15 @@ function App() {
           <a className="navbar-brand fw-bold animate-brand" href="/">QuickBites</a>
           <div className="d-flex align-items-center">
             <span className="navbar-text text-muted me-3">
-              {totalRecipes} recipes available
+              {showFavorites ? `${favorites.length} favorites` : `${totalRecipes} recipes available`}
             </span>
+            <button 
+              className="btn btn-outline-primary btn-sm me-2"
+              onClick={() => setShowFavorites(!showFavorites)}
+              title={showFavorites ? "Show All Recipes" : "Show Favorites"}
+            >
+              <i className={`bi bi-${showFavorites ? 'house' : 'heart-fill'} fs-5`}></i>
+            </button>
             <button 
               className="btn btn-outline-primary btn-sm ms-3"
               onClick={toggleDarkMode}
@@ -128,24 +165,36 @@ function App() {
             </div>
           )}
 
-          {!loading && !error && recipes.length === 0 && (
+          {!loading && !error && getDisplayRecipes().length === 0 && (
             <div className="alert alert-info shadow-sm" role="alert">
-              <h4 className="alert-heading">No recipes found</h4>
-              <p>Try adjusting your search criteria or browse all recipes.</p>
+              <h4 className="alert-heading">
+                {showFavorites ? "No favorites yet" : "No recipes found"}
+              </h4>
+              <p>
+                {showFavorites 
+                  ? "Start adding recipes to your favorites to see them here." 
+                  : "Try adjusting your search criteria or browse all recipes."
+                }
+              </p>
               <hr />
               <button 
                 className="btn btn-outline-primary"
                 onClick={loadAllRecipes}
               >
-                Show All Recipes
+                {showFavorites ? "Browse All Recipes" : "Show All Recipes"}
               </button>
             </div>
           )}
 
           <div className="row row-cols-1 row-cols-md-2 g-4">
-            {recipes.map((recipe) => (
+            {getDisplayRecipes().map((recipe) => (
               <div key={recipe.id} className="col-md-6 col-lg-4 mb-4">
-                <RecipeCard recipe={recipe} darkMode={darkMode} />
+                <RecipeCard 
+                  recipe={recipe} 
+                  darkMode={darkMode}
+                  isFavorite={favorites.includes(recipe.id)}
+                  onToggleFavorite={() => toggleFavorite(recipe.id)}
+                />
               </div>
             ))}
           </div>
