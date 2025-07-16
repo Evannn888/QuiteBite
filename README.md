@@ -77,21 +77,39 @@ yarn install
 python add_recipes.py
 ```
 
-## Running the Application
+## Backend Setup
 
-1. Start the backend server:
-```bash
-# Make sure you're in the project root directory and virtual environment is activated
-python run.py
-```
-The backend server will run on http://localhost:5002
+1. Go to the backend directory:
+   ```sh
+   cd backend
+   ```
 
-2. Start the frontend development server:
-```bash
-cd frontend
-yarn start
-```
-The frontend application will run on http://localhost:3000
+2. (Optional) Create and activate a virtual environment:
+   ```sh
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+
+3. Install dependencies:
+   ```sh
+   pip install -r requirements.txt
+   ```
+
+4. Run the backend server:
+   ```sh
+   python run.py
+   ```
+   The backend will be available at http://localhost:5002
+
+## Running with Docker
+
+1. Build and start all services:
+   ```sh
+   docker compose up --build
+   ```
+
+2. The backend will be at http://localhost:5002  
+   The frontend will be at http://localhost:3000
 
 ## Troubleshooting
 
